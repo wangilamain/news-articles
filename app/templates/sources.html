@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% import 'macros.html' as macro %}
+
+{% block content %}
+{% if news %}
+<div class="container-fluid">
+    <h2 class="text-center text-uppercase">HEADLINES FROM {{id}}</h2>
+    <div class="row">
+        {{macro.displayarticlelist(news)}}
+    </div>
+</div>
+
+{% else %}
+
+<div class="container-fluid">
+    <h2 class="text-center">SOURCES</h2>
+    <div class="row">
+        {{macro.displaysources(sources_list)}}
+    </div>
+
+</div>
+{% endif %}
+
+{% endblock %}

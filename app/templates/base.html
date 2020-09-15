@@ -1,0 +1,33 @@
+{% extends 'bootstrap/base.html'%}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% block styles %}
+    <link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}">
+    <script src="{{url_for('static',filename='js/jquery-3.4.1.min.js')}}"></script>
+    <script src="{{url_for('static',filename='js/bootstrap.js')}}"></script>
+    {% endblock %}
+
+    {% block scripts %}
+
+
+    {% endblock %}
+
+
+</head>
+<body>
+    {% block navbar %}
+      {% include 'navbar.html' %}
+    {% endblock %}
+
+
+  {% block content %} 
+  
+  {% endblock %}
+</body>
+</html>
