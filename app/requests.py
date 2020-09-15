@@ -7,7 +7,7 @@ base_url = None
 
 def configure(app):
     global api_key, base_url
-    base_url = app.config['SOURCE_API_BASE_URL']
+    base_url = app.config['ARTICLE_API_BASE_URL']
     api_key = app.config['NEWS_API_KEY']
 
 
