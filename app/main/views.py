@@ -8,12 +8,19 @@ def index():
     '''
     View root page function that returns the index page and its data
     '''
-    general = get_article('top-headlines')
+    general_news = get_sources('general')
+    business_news = get_sources('business')
+    technology_news = get_sources('technology')
+    health_news = get_sources('health')
+    entertainment_news = get_sources('entertainment')
+    sports_news = get_sources('sports')
+    top = topheadlines()
     #business = get_article('top-headlines')
     #health = get_article('sources')
     #entertainment = get_article('top-headlines')
     title = 'Home- News Updates'
-    return render_template('index.html', title = title,general=general)
+    return render_template('index.html', general =general_news, business =business_news,technology = technology_news, health = health_news,entertainment = entertainment_news,sports = sports_news, top = top)
+
     # return render_template('index.html', title = title,general=general,health=health)
     
 ​

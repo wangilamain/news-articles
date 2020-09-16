@@ -1,80 +1,117 @@
-import urllib.request,json
-from .models import NewsArticles, NewsSources
-​
+import urllib.request, json
+from .models import Source, Article, Top
+from datetime import datetime
+
+#Get api key
 api_key = None
+
+#get base url
 base_url = None
-​
-​
-def configure(app):
-    global api_key, base_url
-    #base_url = app.config['ARTICLES_API_BASE_URL']
-    base_url = app.config["BASE_URL"]
+article_url = None
+top_url = None
+
+
+def configure_request(app):
+    global api_key,base_url,article_url,top_url
     api_key = app.config['NEWS_API_KEY']
-​
-​
-​
-def get_article(endpoint):
+    base_url = app.config['SOURCE_API_BASE_URL']
+    article_url = app.config['ARTICLES_API_BASE_URL']
+    top_url = app.config['TOP_API_BASE_URL']
+
+def get_sources(category):
+    
     '''
+    Function that gets the json response to our url request
     '''
-    get_article_url = base_url.format(endpoint, api_key)
-    print(get_article_url)
-​
-    with urllib.request.urlopen(get_article_url) as url:
-        response = json.loads(url.read())
-        results = None
-​
-        #print(response)
-        if response:
-            print(response.keys())
-            articles_lists = response['articles']
-            results = process_articles(articles_lists)
-    return results
-​
-​
-def process_articles(articles_lists):
-    processed_articles = []
-    for article in articles_lists:
-        source = article.get('source')
-        title = article.get('title')
-        author = article.get('author')
-        description = article.get('description')
-        url = article.get('url')
-        urlToImage = article.get('urlToImage')
-        publishedAt = article.get('publishedAt')
-        content = article.get('content')
-​
-        if content and urlToImage:
-            article_object = NewsArticles(
-                source, author, title, description, url, urlToImage, publishedAt, content)
-            processed_articles.append(article_object)
-    return processed_articles
-​
-​
-def get_sources(endpoint):
-    get_sources_url = base_url.format(endpoint,api_key)
-    print(get_sources_url)
-​
+    get_sources_url = base_url.format(category,api_key)
+
     with urllib.request.urlopen(get_sources_url) as url:
-        response = json.loads(url.read())
-        results = None
-​
-        if response:
-            sources_lists = response['sources']
-            results = process_sources(sources_lists)
-    return results        
-​
-def process_sources(sources_lists):
-    processed_sources = []
-​
-    for source in sources_lists:
-        id = source.get('id')
-        name = source.get('name')
-        description = source.get('description')
-        url = source.get('url')
-        category = source.get('category')
-        language = source.get('language')
-        country = source.get('country')
-​
-        sources_object = NewsSources(id,name,description,url,category,language,country)
-        processed_sources.append(sources_object)
-    return processed_sources
+        get_sources_data = url.read()
+        get_sources_response = json.loads(get_sources_data)
+
+        source_results = None
+
+        if get_sources_response['sources']:
+            source_results_list = get_sources_response['sources']
+            source_results = process_results(source_results_list)
+
+    return source_results
+
+def process_results(source_list):
+    '''
+    Function  that processes the source result and transform them to a list of Objects
+    Args:
+        source_list: A list of dictionaries that contain source details
+    Returns :
+        source_results: A list of source objects
+    '''
+
+    source_results = []
+
+    for source_item in source_list:
+        id = source_item.get('id')        
+        name= source_item.get('name')
+        category = source_item.get('category')
+        source_object= Source(id,name,category)
+        source_results.append(source_object)
+        
+    return source_results
+
+def get_articles(id):
+    get_article_url = article_url.format(id,api_key)
+
+    with urllib.request.urlopen(get_article_url) as url:
+        article_details_data = url.read()
+        article_details_response = json.loads(article_details_data)
+
+        
+        if article_details_response['articles']:
+            article_results_list = article_details_response['articles']
+
+        article_results = []
+        if article_details_response["totalResults"] > 0:
+
+            for article_item in article_results_list:
+                name = article_item.get('source').get('name')
+                author = article_item.get('author')
+                title = article_item.get('title')
+                description = article_item.get('description')
+                url = article_item.get('url')
+                urlToImage = article_item.get('urlToImage')
+                pdate = article_item.get('publishedAt')
+                
+                publishedAt = datetime.strptime(pdate, '%Y-%m-%dT%H:%M:%SZ').date()
+
+                if urlToImage != "null":
+                    article_object = Article(name,author,title,description,url,urlToImage,publishedAt)
+                    article_results.append(article_object)
+        else:
+            return
+    return article_results
+
+def topheadlines():
+        get_top_url = top_url.format(api_key)
+
+        with urllib.request.urlopen(get_top_url) as url:
+            top_details_data = url.read()
+            top_details_response = json.loads(top_details_data)
+
+        
+            if top_details_response['articles']:
+                top_results_list = top_details_response['articles']
+
+            top_results = []
+            for top_item in top_results_list:
+                source = top_item.get('source').get('name')
+                author = top_item.get('author')
+                title = top_item.get('title')
+                description = top_item.get('description')
+                url = top_item.get('url')
+                urlToImage = top_item.get('urlToImage')
+    
+
+                if urlToImage != "null":
+                    top_object = Top(source,author,title,description,url,urlToImage)
+                    top_results.append(top_object)
+
+        return top_results
