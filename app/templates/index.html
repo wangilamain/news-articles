@@ -1,33 +1,37 @@
 {% import 'macros.html' as macro %}
 {% extends 'base.html' %}
 
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap.css')}}">
+{% endblock %}
 
 {% block content %}
     <div class="container-fluid py-2">
         <h2>GENERAL NEWS</h2>
         <hr>
         <div class="row">
-            {{macro.displayarticlelist(general)}}
+            {{ macro.displaySourcesList(general) }}
         </div>
 
         <h2>HEALTH NEWS</h2>
         <hr>
         <div class="row">
-                {{macro.displayarticlelist(health)}}
+           {{macro.displaySourcesList(health)}}
             
         </div>
 
         <h2>ENTERTAINMENT</h2> 
         <hr>
         <div class="row">
-                {{macro.displayarticlelist(entertainment)}}
+          {{macro.displaySourcesList(entertainment)}}
 
         </div>
 
         <h2>BUSINESS</h2>
         <hr>
         <div class="row">
-                {{macro.displayarticlelist(business)}}
+          {{macro.displaySourcesList(business)}}
 
         </div>   
     </div>

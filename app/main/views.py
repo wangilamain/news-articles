@@ -1,6 +1,6 @@
 from flask import render_template,request,redirect,url_for
 from . import main
-from ..requests import get_articles, get_sources,topheadlines
+from ..requests import get_articles, get_sources
 from ..models import NewsSources
 # Views
 @main.route('/')
@@ -14,31 +14,19 @@ def index():
     health_news = get_sources('health')
     entertainment_news = get_sources('entertainment')
     sports_news = get_sources('sports')
-    top = topheadlines()
     #business = get_article('top-headlines')
     #health = get_article('sources')
     #entertainment = get_article('top-headlines')
     title = 'Home- News Updates'
-    return render_template('index.html', general =general_news, business =business_news,technology = technology_news, health = health_news,entertainment = entertainment_news,sports = sports_news, top = top)
+    return render_template('index.html', general =general_news, business =business_news,technology = technology_news, health = health_news,entertainment = entertainment_news,sports = sports_news)
 
     # return render_template('index.html', title = title,general=general,health=health)
     
 @main.route('/sources/<id>')
-def news(id=None):
+def articles(id):
     '''
-    view news articles page that is detailed
+    View articles page function
     '''
-    general_news = get_sources('general')
-    business_news = get_sources('business')
-    technology_news = get_sources('technology')
-    health_news = get_sources('health')
-    entertainment_news = get_sources('entertainment')
-    sports_news = get_sources('sports')
-    article = get_articles(id)
-    if article:
-        for i in article:
-            name = i.name
-    else:
-         name = ""
-        
-    return render_template('article.html',general =general_news, business =business_news,technology = technology_news, health = health_news,entertainment = entertainment_news,sports = sports_news,article = article,name = name)
+    articles = get_articles(id)
+    title = f'News Updates || {id}'
+    return render_template('articles.html',articles = articles, title= title)

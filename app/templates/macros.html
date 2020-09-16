@@ -2,20 +2,20 @@
 {% for article in articles %}
             <div class="col-sm-6 col-lg-3 col-md-4 p-2">
                 <div class="card bg-light h-100">
-                    <img src="{{article.urlToImage}}" alt="image" class="card-img-top card-image">
+                    <img src="{{article.image}}" alt="image" class="card-img-top card-image">
                     <div class="card-title h4">
                         {{article.title | truncate(40)}}
                     </div>
                     <div class="card-body">
                         <div class="card-text">
-                            {{article.content |truncate(100)}} <br>
+                            {{article.description |truncate(100)}} <br>
                             <a href="{{article.url}}" class="btn btn-primary btn-sm" target="_blank">Read More...</a>
                         </div>
                     </div>
                     <div class="card-footer small font-italic py-0">
                         Author: {{article.author}}<br> 
                         Date: {{article.publishedAt}} <br>
-                        source: {{article.source.name}}
+
 
                     </div>
                 </div>
@@ -23,9 +23,7 @@
 {% endfor %}                    
 {% endmacro %}
 
-
-{% macro displaysources(source_list) %}
-
+{% macro displaySourcesList(source_list) %}
     {% for source in source_list %}
     <div class="col-sm-6 col-md-4 col-lg-3 p-2">
             <div class="card h-100">

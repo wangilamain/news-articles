@@ -52,7 +52,11 @@ def process_results(source_list):
         id = source_item.get('id')        
         name= source_item.get('name')
         category = source_item.get('category')
-        source_object= Source(id,name,category)
+        description = source_item.get('description')
+        url = source_item.get('url')
+        country = source_item.get('country')
+        language = source_item.get('language')
+        source_object= NewsSources(id,name,description,url,category,language,country)
         source_results.append(source_object)
         
     return source_results
@@ -72,46 +76,20 @@ def get_articles(id):
         if article_details_response["totalResults"] > 0:
 
             for article_item in article_results_list:
-                name = article_item.get('source').get('name')
+                name = article_item.get('name')
                 author = article_item.get('author')
                 title = article_item.get('title')
                 description = article_item.get('description')
                 url = article_item.get('url')
-                urlToImage = article_item.get('urlToImage')
+                image = article_item.get('urlToImage')
                 pdate = article_item.get('publishedAt')
-                
+                content = article_item.get('content')
                 publishedAt = datetime.strptime(pdate, '%Y-%m-%dT%H:%M:%SZ').date()
 
-                if urlToImage != "null":
-                    article_object = Article(name,author,title,description,url,urlToImage,publishedAt)
+                if image:
+                    article_object = NewsArticles(name,author,title,description,url,image,publishedAt,content)
                     article_results.append(article_object)
         else:
             return
     return article_results
 
-def topheadlines():
-        get_top_url = top_url.format(api_key)
-
-        with urllib.request.urlopen(get_top_url) as url:
-            top_details_data = url.read()
-            top_details_response = json.loads(top_details_data)
-
-        
-            if top_details_response['articles']:
-                top_results_list = top_details_response['articles']
-
-            top_results = []
-            for top_item in top_results_list:
-                source = top_item.get('source').get('name')
-                author = top_item.get('author')
-                title = top_item.get('title')
-                description = top_item.get('description')
-                url = top_item.get('url')
-                urlToImage = top_item.get('urlToImage')
-    
-
-                if urlToImage != "null":
-                    top_object = Top(source,author,title,description,url,urlToImage)
-                    top_results.append(top_object)
-
-        return top_results

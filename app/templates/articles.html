@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% import 'macros.html' as macro %}
+
+{% block content %}
+<h2 class="p-2">Headlines</h2><hr>
+        <div class="row">
+            {% for article in articles_row %}
+                <div class="col w-100">
+                    <div>
+                    <a href="{{article.url}}" target="_blank">
+                            <img src="{{article.image}}" alt="{{article.title}}" class=" img-fluid" styles="height:300px; width:300px;"></a>
+                            <div class="img-fluid p-2"></div>
+                                <h4><a href="{{article.url}}" target="_blank">{{article.title |truncate(35)}}</a></h4>
+                                <div class="card-body p-2"><p>{{article.description | truncate(60)}}</p></div>
+                                <a href="{{article.url}}" target="_blank" class="btn btn-info btn-sm"> Read More</a>
+                            </div>
+                            <div class="card-footer text-muted font-small p-2">
+                            Published : {{article.date}}
+                            </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+ {%endblock%}
