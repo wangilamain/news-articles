@@ -1,5 +1,5 @@
 from flask import Flask
-from  config import config_options
+from  config import Config, config_options
 from flask_bootstrap import Bootstrap
 
 
@@ -15,11 +15,11 @@ def create_app(config_name):
     #  initializing the app
     bootstrap.init_app(app)
 
-    from .requests import configure_request
-    configure_request(app)
-
     #registering blueprint
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint) 
-    
+
+    from .requests import configure_request
+    configure_request(app)
+
     return app
