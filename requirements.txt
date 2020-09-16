@@ -16,3 +16,4 @@ SecretStorage==2.3.1
 six==1.11.0
 Werkzeug==1.0.1
 gunicorn==20.0.4
+Flask-Bootstrap==3.3.7.1
