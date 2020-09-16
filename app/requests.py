@@ -87,6 +87,7 @@ def get_articles(id):
                 publishedAt = datetime.strptime(pdate, '%Y-%m-%dT%H:%M:%SZ').date()
 
                 if image:
+                    print(image);exit(0)
                     article_object = NewsArticles(name,author,title,description,url,image,publishedAt,content)
                     article_results.append(article_object)
         else:
