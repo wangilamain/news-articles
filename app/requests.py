@@ -86,10 +86,10 @@ def get_articles(id):
                 content = article_item.get('content')
                 publishedAt = datetime.strptime(pdate, '%Y-%m-%dT%H:%M:%SZ').date()
 
-if urlToImage != "null":
-                    top_object = Top(source,author,title,description,url,urlToImage)
-                    top_results.append(top_object)
-               
+                if image:
+                    print(image);exit(0)
+                    article_object = NewsArticles(name,author,title,description,url,urlToImage,publishedAt,content)
+                    article_results.append(article_object)
         else:
             return
     return article_results
