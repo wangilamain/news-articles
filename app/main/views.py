@@ -1,6 +1,6 @@
 from flask import render_template,request,redirect,url_for
 from . import main
-from ..requests import get_articles, get_sources
+from ..requests import get_articles, get_sources, topheadlines
 from ..models import NewsSources
 # Views
 @main.route('/')
@@ -17,8 +17,8 @@ def index():
     #business = get_article('top-headlines')
     #health = get_article('sources')
     #entertainment = get_article('top-headlines')
-    title = 'Home- News Updates'
-    return render_template('index.html', general =general_news, business =business_news,technology = technology_news, health = health_news,entertainment = entertainment_news,sports = sports_news)
+    top = topheadlines()
+    return render_template('index.html', general =general_news, business =business_news,technology = technology_news, health = health_news,entertainment = entertainment_news,sports = sports_news,top = top)
 
     # return render_template('index.html', title = title,general=general,health=health)
     

@@ -10,7 +10,7 @@
 
        {% block styles%}
        {{ super() }}
-       <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+       <link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap.css')}}">
        {% endblock %}
         <!-- Content block -->
         {% block content %}
@@ -40,20 +40,6 @@
                 {%else%}
                 <a href="/article/{{business.id}}">
                 <li class="list-group-item list-group-item-action ">{{business.name}}
-                </li></a>
-                {% endif%}
-           {%endfor%}
-          </ul>
-          <h3 class="bg-dark text-white">Science News</h3>
-          <ul class="list-group">
-            {% for science in science %}     
-              {%if science.name == name%}
-                <a href="/#">
-                <li class="list-group-item list-group-item-action list-group-item-info">{{science.name}}
-                </li></a>
-                {%else%}
-                <a href="/article/{{science.id}}">
-                <li class="list-group-item list-group-item-action ">{{science.name}}
                 </li></a>
                 {% endif%}
            {%endfor%}
