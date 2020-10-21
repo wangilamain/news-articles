@@ -1,7 +1,6 @@
 <h1>NEWSUPDATES</h1>
 <h2>Author</h2>
 <p>Sharon wawira</p>
-
 <h2>Description</h2>
 <p>This appication helps users to view current and previous news updates and articles from different sites,countries and their authors.</p>
 
@@ -24,7 +23,5 @@ run chmod+x on your project directory to grant permissions.
 <ol>css3</ol>
 <ol>Code beat</ol>
 <ol>codebeat badge</ol</li>
-
 <h2>LICENSE</h2>
-
 <p>Copyright (c) {2020} Sharonwawira.</p>
