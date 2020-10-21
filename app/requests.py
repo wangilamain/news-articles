@@ -1,7 +1,6 @@
 import urllib.request, json
 from .models import NewsSources, NewsArticles, Top
 from datetime import datetime
-
 #Get api key
 api_key = None
 
@@ -9,8 +8,6 @@ api_key = None
 base_url = None
 article_url = None
 top_url = None
-
-
 def configure_request(app):
     global api_key,base_url,article_url,top_url
     api_key = app.config['NEWS_API_KEY']
@@ -45,7 +42,6 @@ def process_results(source_list):
     Returns :
         source_results: A list of source objects
     '''
-
     source_results = []
 
     for source_item in source_list:
@@ -117,5 +113,4 @@ def topheadlines():
                 if urlToImage != "null":
                     top_object = Top(source,author,title,description,url,urlToImage)
                     top_results.append(top_object)
-
         return top_results

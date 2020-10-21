@@ -2,6 +2,7 @@ from flask import render_template,request,redirect,url_for
 from . import main
 from ..requests import get_articles, get_sources, topheadlines
 from ..models import NewsSources
+                 
 # Views
 @main.route('/')
 def index():

@@ -8,7 +8,6 @@ class NewsArticles:
         self.urlToImage = urlToImage
         self.publishedAt = publishedAt
         self.content=content
-
 class NewsSources:
     def __init__(self,id,name,description,url,category,language,country):
         self.id = id
@@ -22,7 +21,6 @@ class Top:
     '''
     Top headlines class to define headlines objects
     '''
-
     def __init__(self, source, author, title,  description, link, image):
 
         self.source = source
